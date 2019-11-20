@@ -10,14 +10,20 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activity.DoiMatKhauActivity"></activity>
-        <activity android:name=".activity.ThemTKActivity" />
-        <activity android:name=".activity.QuanLyTaiKhoanActivity" />
-        <activity android:name=".activity.DiemCaoActivity" />
-        <activity android:name=".activity.HuongDanActivity" />
-        <activity android:name=".activity.ChoiGameActivity" />
-        <activity android:name=".activity.ManHinhChinhActivity" />
-        <activity android:name=".activity.DangNhapActivity" />
-        <activity android:name=".activity.ChaoActivity">
+        <activity android:name=".activity.ThemTKActivity"/>
+        <activity android:name=".activity.QuanLyTaiKhoanActivity"/>
+        <activity android:name=".activity.DiemCaoActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity android:name=".activity.HuongDanActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity android:name=".activity.ChoiGameActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity android:name=".activity.ManHinhChinhActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity android:name=".activity.DangNhapActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity android:name=".activity.ChaoActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

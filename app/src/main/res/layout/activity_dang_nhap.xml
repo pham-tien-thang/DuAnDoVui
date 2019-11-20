@@ -1,9 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/nendangnhap"
+    android:padding="32dp"
     android:layout_height="match_parent"
     tools:context=".activity.DangNhapActivity">
+<TextView
+    android:textColor="@color/trang"
+    android:textSize="50dp"
+    android:textStyle="bold"
+    android:layout_marginTop="75dp"
+    android:layout_gravity="center"
+    android:layout_marginBottom="75dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="ĐỐ VUI"/>
+    <EditText
+        android:background="@color/trang"
+        android:id="@+id/edtUser"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:padding="10dp"
+        android:textColorHint="@color/nâu"
+        android:layout_marginBottom="25dp"
+        android:hint="Tên đăng nhập (thắng)"/>
+    <EditText
+        android:background="@color/trang"
+        android:padding="10dp"
+        android:id="@+id/edtpassword"
+        android:textColorHint="@color/nâu"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="25dp"
+        android:layout_height="50dp"
+        android:hint="Mật khẩu (1)"/>
+    <Button
+        android:background="@color/xanhdam"
+        android:text="đăng nhập"
+        android:textColor="@color/trang"
+        android:id="@+id/btnDangNhap"
+        android:layout_gravity="center"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

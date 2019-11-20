@@ -1,9 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/trang"
     android:layout_width="match_parent"
+    android:padding="32dp"
+    android:orientation="vertical"
     android:layout_height="match_parent"
     tools:context=".activity.HuongDanActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="271dp"
+        android:background="@drawable/tvhuongdan"
+        android:padding="30dp"
+        android:textColor="@color/đen"
+        android:text="bấm vào đáp án bạn cho là đúng.
+mỗi đáp án đúng bạn được +1 điểm, nếu sai sẽ dừng cuộc chơi
+có 3 sự trợ giúp : loại bỏ 2 đáp án sai,gọi cứu trợ và chuyển câu hỏi.
+" />
+<ImageView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:src="@drawable/nobitahuongdan"/>
+    <Button
+        android:id="@+id/btnThoat"
+        android:layout_marginBottom="15dp"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:text="Thoát"
+        android:layout_gravity="center"
+        android:textColor="@color/trang"
+        android:background="@drawable/botron"/>
+
+</LinearLayout>
