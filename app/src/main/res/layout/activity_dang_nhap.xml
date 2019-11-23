@@ -24,12 +24,14 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:padding="10dp"
+        android:textColor="@color/đen"
         android:textColorHint="@color/nâu"
         android:layout_marginBottom="25dp"
         android:hint="Tên đăng nhập (thắng)"/>
     <EditText
         android:background="@color/trang"
         android:padding="10dp"
+        android:textColor="@color/đen"
         android:id="@+id/edtpassword"
         android:textColorHint="@color/nâu"
         android:layout_width="match_parent"

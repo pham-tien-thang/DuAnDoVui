@@ -2,23 +2,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="32dp"
-    android:background="@color/trang">
+    android:padding="32dp">
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="BẠN TRẢ LỜI SAI"
+    android:textStyle="bold"
+    android:layout_gravity="center"/>
     <TextView
+        android:id="@+id/tvSoMang"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:textColor="@color/đen"
         android:layout_gravity="center"
-        android:text="GAME OVER"/>
+        />
     <Button
-        android:id="@+id/btnThoatDialogGameOver"
-        android:background="@color/nâu"
-        android:textColor="@color/trang"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
+        android:id="@+id/btnThoatDialogTLSai"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ok"/>
-
+        android:layout_gravity="center"
+        android:text="OK"/>
 </LinearLayout>
