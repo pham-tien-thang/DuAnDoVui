@@ -9,9 +9,9 @@ import android.widget.Button;
 
 import com.example.duandovui.R;
 
-public class HuongDanActivity extends AppCompatActivity {
+public class HuongDanActivity extends AppCompatActivity implements HuongDanInterface {
    Button btnThoat;
-
+HuongDanPrecenter pre;
 
 
     @Override
@@ -19,11 +19,17 @@ public class HuongDanActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_huong_dan);
         btnThoat = (Button) findViewById(R.id.btnThoat);
+        pre = new HuongDanPrecenter(this);
         btnThoat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               finish();
+               pre.prethoat();
             }
         });
+    }
+
+    @Override
+    public void thoat() {
+        finish();
     }
 }

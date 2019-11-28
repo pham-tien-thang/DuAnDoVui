@@ -9,18 +9,19 @@ import android.widget.Button;
 
 import com.example.duandovui.R;
 
-public class ManHinhChinhActivity extends AppCompatActivity {
+public class ManHinhChinhActivity extends AppCompatActivity implements ManHinhchinhInterface {
      Button btnTaiKhoan;
     Button btnChoiGame;
     Button btnHuongDan;
     Button btnDiemCao;
      Button btnThoat;
 
-
+ManHinhChinhPrecenter pre;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_man_hinh_chinh);
+        pre = new ManHinhChinhPrecenter(this);
         btnTaiKhoan = (Button) findViewById(R.id.btnTaiKhoan);
         btnChoiGame = (Button) findViewById(R.id.btnChoiGame);
         btnHuongDan = (Button) findViewById(R.id.btnHuongDan);
@@ -29,32 +30,57 @@ public class ManHinhChinhActivity extends AppCompatActivity {
         btnThoat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               finish();
+               pre.toThoat();
             }
         });
         btnTaiKhoan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ManHinhChinhActivity.this,QuanLyTaiKhoanActivity.class));
+                pre.toTaikhoan();
             }
         });
         btnHuongDan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ManHinhChinhActivity.this,HuongDanActivity.class));
+                pre.toHuongDan();
             }
         });
         btnDiemCao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity( new Intent(ManHinhChinhActivity.this,DiemCaoActivity.class));
+                pre.toDiemCao();
             }
         });
         btnChoiGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ManHinhChinhActivity.this,ChoiGameActivity.class));
+              pre.toChoiGame();
             }
         });
+    }
+
+    @Override
+    public void toTaiKhoan() {
+        startActivity(new Intent(ManHinhChinhActivity.this,QuanLyTaiKhoanActivity.class));
+    }
+
+    @Override
+    public void toChoiGame() {
+        startActivity(new Intent(ManHinhChinhActivity.this,ChoiGameActivity.class));
+    }
+
+    @Override
+    public void tohuongdan() {
+        startActivity(new Intent(ManHinhChinhActivity.this,HuongDanActivity.class));
+    }
+
+    @Override
+    public void toDiemcao() {
+        startActivity( new Intent(ManHinhChinhActivity.this,DiemCaoActivity.class));
+    }
+
+    @Override
+    public void toThoat() {
+        finish();
     }
 }

@@ -21,10 +21,12 @@ import com.example.duandovui.model.CauHoi;
 import com.example.duandovui.model.NguoiDung;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-public class ChoiGameActivity extends AppCompatActivity {
+public class ChoiGameActivity extends AppCompatActivity implements ChoiGameInterface{
      TextView tvDiem;
     TextView tvCuuTro;
      TextView tv50;
@@ -43,6 +45,8 @@ public class ChoiGameActivity extends AppCompatActivity {
     int somang;
     int trogiup2;
     Boolean chonnv;
+    ChoiGamePrecenter pre;
+    List<String> dapan;
     public  List<CauHoi> Listcauhoi = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +59,7 @@ public class ChoiGameActivity extends AppCompatActivity {
         trogiup2 = 1;
         trogiup3=1;
         chonnv = false;
+        pre  = new ChoiGamePrecenter(this);
         Listcauhoi=myDatabase.laycauhoi();
         tvDiem = (TextView) findViewById(R.id.tvDiem);
         tvCuuTro = (TextView) findViewById(R.id.tvCuuTro);
@@ -67,110 +72,23 @@ public class ChoiGameActivity extends AppCompatActivity {
         tvB = (TextView) findViewById(R.id.tvB);
         tvC = (TextView) findViewById(R.id.tvC);
         tvD = (TextView) findViewById(R.id.tvD);
-   hienthi();
+  pre.hienthi();
    tvCuuTro.setOnClickListener(new View.OnClickListener() {
        @Override
        public void onClick(View view) {
-           if (trogiup1>0){
-               Boolean chonnv = false;
-               trogiup1--;
-               tvCuuTro.setText("XXX");
-               showdialogCuuTro();
-           }
-           else {
-               Toast.makeText(getApplicationContext(),"bạn đã dùng Cứu trợ",Toast.LENGTH_LONG).show();
-           }
+          pre.cuutro1();
        }
    });
    tvDoiCauHoi.setOnClickListener(new View.OnClickListener() {
        @Override
        public void onClick(View view) {
-           if (trogiup3>0){
-               trogiup3--;
-               tvDoiCauHoi.setText("XXX");
-               socauhoi--;
-               hienthi();
-           }
-           else {
-               Toast.makeText(getApplicationContext(),"bạn đã dùng đổi câu hỏi",Toast.LENGTH_LONG).show();
-           }
+          pre.doicauhoi();
        }
    });
    tv50.setOnClickListener(new View.OnClickListener() {
        @Override
        public void onClick(View view) {
-           if (trogiup2>0){
-               trogiup2--;
-               tv50.setText("XXX");
-               String dapandung = Listcauhoi.get(number).getDapandung();
-               if (tvA.getText().equals(dapandung)){
-                   Random rd50 = new Random();   // khai báo 1 đối tượng Random
-                   int random50 = rd50.nextInt(3)+1;
-                   if(random50==1){
-                       tvC.setText("");
-                       tvD.setText("");
-                   }
-                   else if(random50==2){
-                       tvB.setText("");
-                       tvD.setText("");
-                   }
-                   else if(random50==3){
-                       tvB.setText("");
-                       tvC.setText("");
-                   }
-               }
-               else if(tvB.getText().equals(dapandung)){
-                   Random rd50 = new Random();   // khai báo 1 đối tượng Random
-                   int random50 = rd50.nextInt(3)+1;
-                   if(random50==1){
-                       tvD.setText("");
-                       tvC.setText("");
-                   }
-                   else if(random50==2){
-                       tvA.setText("");
-                       tvD.setText("");
-                   }
-                   else if(random50==3){
-                       tvA.setText("");
-                       tvC.setText("");
-                   }
-               }
-               else if(tvC.getText().equals(dapandung)){
-                   Random rd50 = new Random();   // khai báo 1 đối tượng Random
-                   int random50 = rd50.nextInt(3)+1;
-                   if(random50==1){
-                       tvD.setText("");
-                       tvB.setText("");
-                   }
-                   else if(random50==2){
-                       tvA.setText("");
-                       tvD.setText("");
-                   }
-                   else if(random50==3){
-                       tvA.setText("");
-                       tvB.setText("");
-                   }
-               }
-               else if(tvD.getText().equals(dapandung)){
-                   Random rd50 = new Random();   // khai báo 1 đối tượng Random
-                   int random50 = rd50.nextInt(3)+1;
-                   if(random50==1){
-                       tvB.setText("");
-                       tvC.setText("");
-                   }
-                   else if(random50==2){
-                       tvA.setText("");
-                       tvC.setText("");
-                   }
-                   else if(random50==3){
-                       tvA.setText("");
-                       tvB.setText("");
-                   }
-               }
-           }
-           else {
-               Toast.makeText(getApplicationContext(),"bạn đã dùng 50:50",Toast.LENGTH_LONG).show();
-           }
+          pre.trogiup2();
        }
    });
 
@@ -185,7 +103,7 @@ public class ChoiGameActivity extends AppCompatActivity {
                new Handler().postDelayed(new Runnable() {
                    @Override
                    public void run() {
-                       hienthi();
+                       pre.hienthi();
                    }
                }, 500);
            }
@@ -195,8 +113,8 @@ public class ChoiGameActivity extends AppCompatActivity {
                    public void run() {
                        if (somang>0){
                        somang--;
-                   showdialogsai();}
-                       else {showdialogGameover();}
+                   pre.showfalse();}
+                       else {pre.showover();}
                    }
                }, 500);
            }
@@ -213,7 +131,7 @@ public class ChoiGameActivity extends AppCompatActivity {
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            hienthi();
+                           pre.hienthi();
                         }
                     }, 500);
                 }
@@ -223,8 +141,8 @@ public class ChoiGameActivity extends AppCompatActivity {
                         public void run() {
                             if (somang>0){
                                 somang--;
-                                showdialogsai();}
-                            else {showdialogGameover();}
+                                pre.showfalse();}
+                            else {pre.showover();}
                         }
                     }, 500);
                 }
@@ -242,7 +160,7 @@ public class ChoiGameActivity extends AppCompatActivity {
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            hienthi();
+                          pre.hienthi();
                         }
                     }, 500);
 
@@ -253,8 +171,8 @@ public class ChoiGameActivity extends AppCompatActivity {
                         public void run() {
                             if (somang>0){
                                 somang--;
-                                showdialogsai();}
-                            else {showdialogGameover();}
+                                pre.showfalse();}
+                            else {pre.showover();}
                         }
                     }, 500);
                 }
@@ -271,7 +189,7 @@ public class ChoiGameActivity extends AppCompatActivity {
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            hienthi();
+                           pre.hienthi();
                         }
                     }, 500);
                 }
@@ -281,20 +199,26 @@ public class ChoiGameActivity extends AppCompatActivity {
                         public void run() {
                             if (somang>0){
                                 somang--;
-                                showdialogsai();}
-                            else {showdialogGameover();}
+                                pre.showfalse();}
+                            else {pre.showover();}
                         }
                     }, 500);
                 }
             }
         });
     }
+    @Override
     public  void  hienthi(){
         socauhoi++;
         Random rd = new Random();   // khai báo 1 đối tượng Random
          number = rd.nextInt(50);
-        Random rd2 = new Random();   // khai báo 1 đối tượng Random
-        int number2 = rd.nextInt(4)+1;
+         dapan = new ArrayList<>();
+         dapan.add(Listcauhoi.get(number).getDapandung());
+        dapan.add(Listcauhoi.get(number).getDapan2());
+        dapan.add(Listcauhoi.get(number).getDapan3());
+        dapan.add(Listcauhoi.get(number).getDapan4());
+//        Random rd2 = new Random();   // khai báo 1 đối tượng Random
+//        int number2 = rd.nextInt(4)+1;
         tvSoCauHoi.setText("Câu số :"+socauhoi);
         tvDiem.setText(socauhoi+"");
         tvCauHoi.setText(Listcauhoi.get(number).getNoidung());
@@ -302,37 +226,128 @@ public class ChoiGameActivity extends AppCompatActivity {
         tvA.setBackgroundColor(getResources().getColor(R.color.trang));
         tvD.setBackgroundColor(getResources().getColor(R.color.trang));
         tvC.setBackgroundColor(getResources().getColor(R.color.trang));
-        if(number2==1){
-            tvA.setText(Listcauhoi.get(number).getDapandung());
-            tvB.setText(Listcauhoi.get(number).getDapan2());
-            tvC.setText(Listcauhoi.get(number).getDapan3());
-            tvD.setText(Listcauhoi.get(number).getDapan4());
+        Collections.shuffle(dapan);
+        tvA.setText(dapan.get(0));
+            tvB.setText(dapan.get(1));
+            tvC.setText(dapan.get(2));
+            tvD.setText(dapan.get(3));
+
+    }
+
+    @Override
+    public void trogiup1() {
+        if (trogiup1>0){
+            Boolean chonnv = false;
+            trogiup1--;
+            tvCuuTro.setText("XXX");
+            pre.showcuutro();
         }
-        else if (number2==2){
-            tvA.setText(Listcauhoi.get(number).getDapan2());
-            tvB.setText(Listcauhoi.get(number).getDapandung());
-            tvC.setText(Listcauhoi.get(number).getDapan4());
-            tvD.setText(Listcauhoi.get(number).getDapan3());
+        else {
+            Toast.makeText(getApplicationContext(),"bạn đã dùng Cứu trợ",Toast.LENGTH_LONG).show();
         }
-        else if (number2==3){
-            tvA.setText(Listcauhoi.get(number).getDapan2());
-            tvB.setText(Listcauhoi.get(number).getDapan3());
-            tvC.setText(Listcauhoi.get(number).getDapandung());
-            tvD.setText(Listcauhoi.get(number).getDapan4());
+    }
+
+    @Override
+    public void trogiup2() {
+        if (trogiup2>0){
+            trogiup2--;
+            tv50.setText("XXX");
+            String dapandung = Listcauhoi.get(number).getDapandung();
+            if (tvA.getText().equals(dapandung)){
+                Random rd50 = new Random();   // khai báo 1 đối tượng Random
+                int random50 = rd50.nextInt(3)+1;
+                if(random50==1){
+                    tvC.setText("");
+                    tvD.setText("");
+                }
+                else if(random50==2){
+                    tvB.setText("");
+                    tvD.setText("");
+                }
+                else if(random50==3){
+                    tvB.setText("");
+                    tvC.setText("");
+                }
+            }
+            else if(tvB.getText().equals(dapandung)){
+                Random rd50 = new Random();   // khai báo 1 đối tượng Random
+                int random50 = rd50.nextInt(3)+1;
+                if(random50==1){
+                    tvD.setText("");
+                    tvC.setText("");
+                }
+                else if(random50==2){
+                    tvA.setText("");
+                    tvD.setText("");
+                }
+                else if(random50==3){
+                    tvA.setText("");
+                    tvC.setText("");
+                }
+            }
+            else if(tvC.getText().equals(dapandung)){
+                Random rd50 = new Random();   // khai báo 1 đối tượng Random
+                int random50 = rd50.nextInt(3)+1;
+                if(random50==1){
+                    tvD.setText("");
+                    tvB.setText("");
+                }
+                else if(random50==2){
+                    tvA.setText("");
+                    tvD.setText("");
+                }
+                else if(random50==3){
+                    tvA.setText("");
+                    tvB.setText("");
+                }
+            }
+            else if(tvD.getText().equals(dapandung)){
+                Random rd50 = new Random();   // khai báo 1 đối tượng Random
+                int random50 = rd50.nextInt(3)+1;
+                if(random50==1){
+                    tvB.setText("");
+                    tvC.setText("");
+                }
+                else if(random50==2){
+                    tvA.setText("");
+                    tvC.setText("");
+                }
+                else if(random50==3){
+                    tvA.setText("");
+                    tvB.setText("");
+                }
+            }
         }
-        else if (number2==4){
-            tvA.setText(Listcauhoi.get(number).getDapan2());
-            tvB.setText(Listcauhoi.get(number).getDapan3());
-            tvC.setText(Listcauhoi.get(number).getDapan4());
-            tvD.setText(Listcauhoi.get(number).getDapandung());
+        else {
+            Toast.makeText(getApplicationContext(),"bạn đã dùng 50:50",Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    public void trogiup3() {
+        if (trogiup3>0){
+            trogiup3--;
+            tvDoiCauHoi.setText("XXX");
+            socauhoi--;
+            pre.hienthi();
+        }
+        else {
+            Toast.makeText(getApplicationContext(),"bạn đã dùng đổi câu hỏi",Toast.LENGTH_LONG).show();
         }
 
     }
-    public void showdialogsai(){
+
+    @Override
+    public void chondapan() {
+
+    }
+
+    @Override
+    public void showfalse() {
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.dialog_tlsai);
-         TextView tvSoMang;
-         Button btnThoatDialogTLSai;
+        TextView tvSoMang;
+        Button btnThoatDialogTLSai;
 
         tvSoMang = (TextView) dialog.findViewById(R.id.tvSoMang);
         btnThoatDialogTLSai = (Button) dialog.findViewById(R.id.btnThoatDialogTLSai);
@@ -344,33 +359,23 @@ public class ChoiGameActivity extends AppCompatActivity {
             }
         });
         dialog.show();
+    }
+
+    @Override
+    public void showtrue() {
 
     }
-    public void showdialogGameover(){
-        final Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.dialog_game_over);
-         Button btnThoatDialogGameOver;
-        btnThoatDialogGameOver = (Button) dialog.findViewById(R.id.btnThoatDialogGameOver);
-        btnThoatDialogGameOver.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-                finish();
-            }
-        });
-        dialog.show();
 
-    }
-    public  void showdialogCuuTro(){
+    @Override
+    public void showtrogiup3() {
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.dialog_ho_tro);
-         ImageView imgNv1;
-         ImageView imgNv2;
-         ImageView imgNv3;
-         ImageView imgNv4;
-         final TextView tvTrangthai;
-         Button btnThoatDialogCuuTro;
-
+        ImageView imgNv1;
+        ImageView imgNv2;
+        ImageView imgNv3;
+        ImageView imgNv4;
+        final TextView tvTrangthai;
+        Button btnThoatDialogCuuTro;
         imgNv1 = (ImageView) dialog.findViewById(R.id.imgNv1);
         imgNv2 = (ImageView) dialog.findViewById(R.id.imgNv2);
         imgNv3 = (ImageView) dialog.findViewById(R.id.imgNv3);
@@ -383,19 +388,19 @@ public class ChoiGameActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(chonnv==false)
                 {chonnv = true;
-                tvTrangthai.setText("đang suy nghĩ...\uD83E\uDD14"+"("+"90% trả lời được"+")");
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        Random rdcuutro = new Random();   // khai báo 1 đối tượng Random
-                        int cutro = rdcuutro.nextInt(100)+1;
-                        if(cutro<11){
-                            tvTrangthai.setText("YASUO không biết câu này");
+                    tvTrangthai.setText("đang suy nghĩ...\uD83E\uDD14"+"("+"90% trả lời được"+")");
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Random rdcuutro = new Random();   // khai báo 1 đối tượng Random
+                            int cutro = rdcuutro.nextInt(100)+1;
+                            if(cutro<11){
+                                tvTrangthai.setText("YASUO không biết câu này");
+                            }
+                            else {
+                                tvTrangthai.setText("YASUO chọn "+"'"+ Listcauhoi.get(number).getDapandung()+"'");}
                         }
-                        else {
-                        tvTrangthai.setText("YASUO chọn "+"'"+ Listcauhoi.get(number).getDapandung()+"'");}
-                    }
-                }, 2000);}
+                    }, 2000);}
                 else {
                     Toast.makeText(getApplicationContext(),"Bạn đã chọn 1 đứa rồi",Toast.LENGTH_LONG).show();
                 }
@@ -429,12 +434,12 @@ public class ChoiGameActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(chonnv==false)
                 {chonnv = true;
-                    tvTrangthai.setText("đang suy nghĩ...\uD83D\uDE3E "+"("+"100% luôn \uD83D\uDC4C "+")");
+                    tvTrangthai.setText("đang suy nghĩ...\uD83D\uDE3E "+"("+"100% \uD83D\uDC4C "+")");
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
 
-                                tvTrangthai.setText("Thắng chọn đáp án "+"'"+ Listcauhoi.get(number).getDapandung()+"'"+" nhé \uD83D\uDE06");
+                            tvTrangthai.setText("Thắng chọn đáp án "+"'"+ Listcauhoi.get(number).getDapandung()+"'"+" nhé \uD83D\uDE06");
                         }
                     }, 2000);}
                 else {
@@ -471,11 +476,34 @@ public class ChoiGameActivity extends AppCompatActivity {
                 if (tvTrangthai.getText().equals("___")){
                     Toast.makeText(getApplicationContext(),"Hãy chọn nhân vật",Toast.LENGTH_LONG).show();
                 }
-                    else{
-                dialog.dismiss();}
+                else{
+                    dialog.dismiss();}
             }
         });
         dialog.show();
 
     }
+
+    @Override
+    public void showgameover() {
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.dialog_game_over);
+        Button btnThoatDialogGameOver;
+        btnThoatDialogGameOver = (Button) dialog.findViewById(R.id.btnThoatDialogGameOver);
+        btnThoatDialogGameOver.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+                finish();
+            }
+        });
+        dialog.show();
+        dialog.setCancelable(false);
+    }
+
+    public void showdialogsai(){
+
+
+    }
+
 }

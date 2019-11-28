@@ -9,20 +9,24 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.example.duandovui.R;
-import com.example.duandovui.dao.NguoiDungDao;
 import com.example.duandovui.database.MyDatabase;
 import com.example.duandovui.model.NguoiDung;
 
-public class ChaoActivity extends AppCompatActivity {
-
+public class ChaoActivity extends AppCompatActivity implements Chaointerface {
+Chaoprecenter chaoprecenter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        MyDatabase myDatabase = new MyDatabase(ChaoActivity.this);
-        myDatabase.createDataBase();
-        myDatabase.taobang();
+chaoprecenter = new Chaoprecenter(this);
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
+chaoprecenter.chuyenmh();
+
+    }
+
+    @Override
+    public void toMhchinh() {
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -31,11 +35,18 @@ public class ChaoActivity extends AppCompatActivity {
                 finish();
             }
         }, 1500);
+
+    }
+
+    @Override
+    public void dataBase() {
+        MyDatabase myDatabase = new MyDatabase(ChaoActivity.this);
+        myDatabase.createDataBase();
+        myDatabase.taobang();
         if(myDatabase.getAllNguoiDung().size()<1){
             NguoiDung nd = new NguoiDung("thắng","1",999999);
             myDatabase.insertnguoidung(nd);
         }
         else {}
-
     }
 }
