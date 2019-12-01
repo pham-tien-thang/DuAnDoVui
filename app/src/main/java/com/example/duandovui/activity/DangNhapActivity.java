@@ -24,7 +24,7 @@ public class DangNhapActivity extends AppCompatActivity implements  DangNhapInte
 DangNhapPrecenter pre;
 String username;
 String password;
-MyDatabase myDatabase;
+//MyDatabase myDatabase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,11 +33,15 @@ MyDatabase myDatabase;
         edtUser = (EditText) findViewById(R.id.edtUser);
         edtpassword = (EditText) findViewById(R.id.edtpassword);
         btnDangNhap = (Button) findViewById(R.id.btnDangNhap);
-pre = new DangNhapPrecenter(this);
+//        myDatabase = new MyDatabase(this);
+pre = new DangNhapPrecenter(this,this);
        btnDangNhap.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
-              pre.login();
+
+               username = edtUser.getText().toString();
+               password = edtpassword.getText().toString();
+               pre.login(username,password);
            }
        });
     }
@@ -45,27 +49,35 @@ pre = new DangNhapPrecenter(this);
 
     @Override
     public void login() {
-        myDatabase = new MyDatabase(this);
-        username = edtUser.getText().toString();
-        password = edtpassword.getText().toString();
-        if (username.isEmpty()){
-            edtUser.setError("nhập tài khoản");
-        }
-        else if(password.isEmpty()){
-            edtpassword.setError("nhập mật khẩu");
-        }
-        else {
-            NguoiDung nguoiDung = new NguoiDung(username, password);
-            boolean result = myDatabase.islogin(nguoiDung);
-            if (result) {
+//        myDatabase = new MyDatabase(this);
+//
+//            NguoiDung nguoiDung = new NguoiDung(username, password);
+//            boolean result = myDatabase.islogin(nguoiDung);
+//            if (result) {
                 Toast.makeText(getApplicationContext(), "Đã đăng nhập", Toast.LENGTH_SHORT).show();
                 USER = username;
                 Intent intent = new Intent(DangNhapActivity.this, ManHinhChinhActivity.class);
                 startActivity(intent);
-            } else {
-                startActivity(new Intent(DangNhapActivity.this, ManHinhChinhActivity.class));
+//            } else {
+//                startActivity(new Intent(DangNhapActivity.this, ManHinhChinhActivity.class));
+//                Toast.makeText(getApplicationContext(), "Nhập sai - nhưng vẫn cho vào :))", Toast.LENGTH_LONG).show();
+//            }
+
+    }
+
+    @Override
+    public void checkus() {
+        edtUser.setError("nhập tài khoản");
+    }
+
+    @Override
+    public void checkpass() {
+        edtpassword.setError("nhập mật khẩu");
+    }
+
+    @Override
+    public void loginfalse() {
+        startActivity(new Intent(DangNhapActivity.this, ManHinhChinhActivity.class));
                 Toast.makeText(getApplicationContext(), "Nhập sai - nhưng vẫn cho vào :))", Toast.LENGTH_LONG).show();
-            }
-        }
     }
 }
