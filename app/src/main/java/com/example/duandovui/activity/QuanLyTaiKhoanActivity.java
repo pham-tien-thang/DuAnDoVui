@@ -12,12 +12,19 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.duandovui.R;
+import com.example.duandovui.adapter.NguoiDungAdapter;
+import com.example.duandovui.database.MyDatabase;
+import com.example.duandovui.model.NguoiDung;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class QuanLyTaiKhoanActivity extends AppCompatActivity {
    ListView lvTaiKhoan;
    Button btnThoat;
-
-
+NguoiDungAdapter nguoiDungAdapter;
+MyDatabase myDatabase;
+List<NguoiDung> listnguoidung = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,12 +32,23 @@ public class QuanLyTaiKhoanActivity extends AppCompatActivity {
         setContentView(R.layout.activity_quan_ly_tai_khoan);
         lvTaiKhoan = (ListView) findViewById(R.id.lvTaiKhoan);
         btnThoat = (Button) findViewById(R.id.btnThoat);
+        myDatabase = new MyDatabase(this);
+       listnguoidung=  myDatabase.getAllNguoiDung();
+        nguoiDungAdapter = new NguoiDungAdapter(this,R.layout.item_nguoi_dung,listnguoidung);
+        lvTaiKhoan.setAdapter(nguoiDungAdapter);
         btnThoat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
              finish();
             }
         });
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        listnguoidung.clear();
+        listnguoidung.addAll(myDatabase.getAllNguoiDung());
+        nguoiDungAdapter.notifyDataSetChanged();
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

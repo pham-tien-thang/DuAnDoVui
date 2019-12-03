@@ -177,7 +177,7 @@ public class MyDatabase extends SQLiteOpenHelper {
     }
 
     public int deleteNguoiDungByID(String username) {
-
+        openDataBase();
         int result = mDataBase.delete("NguoiDung", "username=?", new String[]{username});
         if (result == 0)
             return -1;

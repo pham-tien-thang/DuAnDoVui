@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:padding="32dp"
+    android:padding="16dp"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".activity.QuanLyTaiKhoanActivity">
     <ListView
         android:id="@+id/lvTaiKhoan"
         android:layout_width="match_parent"
-        android:layout_height="500dp">
+        android:layout_height="300dp">
     </ListView>
     <Button
         android:id="@+id/btnThoat"

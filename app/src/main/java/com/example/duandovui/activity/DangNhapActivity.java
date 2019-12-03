@@ -49,19 +49,12 @@ pre = new DangNhapPrecenter(this,this);
 
     @Override
     public void login() {
-//        myDatabase = new MyDatabase(this);
-//
-//            NguoiDung nguoiDung = new NguoiDung(username, password);
-//            boolean result = myDatabase.islogin(nguoiDung);
-//            if (result) {
+
                 Toast.makeText(getApplicationContext(), "Đã đăng nhập", Toast.LENGTH_SHORT).show();
                 USER = username;
                 Intent intent = new Intent(DangNhapActivity.this, ManHinhChinhActivity.class);
                 startActivity(intent);
-//            } else {
-//                startActivity(new Intent(DangNhapActivity.this, ManHinhChinhActivity.class));
-//                Toast.makeText(getApplicationContext(), "Nhập sai - nhưng vẫn cho vào :))", Toast.LENGTH_LONG).show();
-//            }
+
 
     }
 
@@ -77,7 +70,7 @@ pre = new DangNhapPrecenter(this,this);
 
     @Override
     public void loginfalse() {
-        startActivity(new Intent(DangNhapActivity.this, ManHinhChinhActivity.class));
-                Toast.makeText(getApplicationContext(), "Nhập sai - nhưng vẫn cho vào :))", Toast.LENGTH_LONG).show();
+
+                Toast.makeText(getApplicationContext(), "Sai tên đăng nhập hoặc mật khẩu", Toast.LENGTH_LONG).show();
     }
 }

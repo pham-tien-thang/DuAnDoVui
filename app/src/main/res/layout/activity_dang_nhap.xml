@@ -21,6 +21,7 @@
     <EditText
         android:background="@color/trang"
         android:id="@+id/edtUser"
+        android:maxLength="10"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:padding="10dp"
@@ -31,6 +32,7 @@
     <EditText
         android:background="@color/trang"
         android:padding="10dp"
+        android:maxLength="10"
         android:textColor="@color/đen"
         android:id="@+id/edtpassword"
         android:textColorHint="@color/nâu"
