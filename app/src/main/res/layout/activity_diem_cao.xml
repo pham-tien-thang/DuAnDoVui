@@ -32,7 +32,7 @@
 
         <ListView
             android:id="@+id/lvDiemCao"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="300dp"
             android:layout_gravity="center" />
 

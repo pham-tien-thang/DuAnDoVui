@@ -27,8 +27,9 @@ public class MyDatabase extends SQLiteOpenHelper {
     public static String DB_PATH;
     public static String TAG = "DataBaseHelper";
     public static final int VERSION = 1;
-    public  Context mContext;
+    public Context mContext;
     public SQLiteDatabase mDataBase;
+
     public MyDatabase(Context context) {
 
         super(context, DB_NAME, null, VERSION);
@@ -39,6 +40,7 @@ public class MyDatabase extends SQLiteOpenHelper {
         }
         this.mContext = context;
     }
+
     private boolean checkDataBase() {
         File dbFile = new File(DB_PATH + DB_NAME);
         //Log.v("dbFile", dbFile + "   "+ dbFile.exists());
@@ -59,6 +61,7 @@ public class MyDatabase extends SQLiteOpenHelper {
         mOutput.close();
         mInput.close();
     }
+
     public void createDataBase() {
         //If the database does not exist, copy it from the assets.
 
@@ -76,6 +79,7 @@ public class MyDatabase extends SQLiteOpenHelper {
             }
         }
     }
+
     public boolean openDataBase() throws SQLException {
         String mPath = DB_PATH + DB_NAME;
         //Log.v("mPath", mPath);
@@ -83,6 +87,7 @@ public class MyDatabase extends SQLiteOpenHelper {
         //mDataBase = SQLiteDatabase.openDatabase(mPath, null, SQLiteDatabase.NO_LOCALIZED_COLLATORS);
         return mDataBase != null;
     }
+
     @Override
     public synchronized void close() {
         if (mDataBase != null)
@@ -113,8 +118,9 @@ public class MyDatabase extends SQLiteOpenHelper {
         return dscauhoi;
 
     }
+
     //sql ng dung
-        public boolean insertnguoidung(NguoiDung nd) {
+    public boolean insertnguoidung(NguoiDung nd) {
         openDataBase();
         ContentValues Values = new ContentValues();
         Values.put("username", nd.getUsername());
@@ -131,7 +137,8 @@ public class MyDatabase extends SQLiteOpenHelper {
         return true;
 
     }
-    public void taobang(){
+
+    public void taobang() {
         openDataBase();
         mDataBase.execSQL("CREATE TABLE if not exists NguoiDung (username text " +
                 "primary key, password text, diemcao number);");
@@ -184,6 +191,26 @@ public class MyDatabase extends SQLiteOpenHelper {
         return 1;
     }
 
+    public List<NguoiDung> getTopNguoiDung() {
+        openDataBase();
+        List<NguoiDung> dsNguoiDung = new ArrayList<>();
+        String sql = "select * from NguoiDung order by diemcao desc limit 10";
+        Cursor c = mDataBase.rawQuery(sql, null);
+
+        c.moveToFirst();
+        while (c.isAfterLast() == false) {
+            NguoiDung nd = new NguoiDung();
+            nd.setUsername(c.getString(0));
+            nd.setPassword(c.getString(1));
+            nd.setDiemcao(c.getInt(2));
+            dsNguoiDung.add(nd);
+            Log.d("//=====", nd.toString());
+            c.moveToNext();
+        }
+        c.close();
+        return dsNguoiDung;
+    }
+
     public boolean isChangePassword(NguoiDung nd) {
         ContentValues values = new ContentValues();
         values.put("username", nd.getUsername());
@@ -204,12 +231,21 @@ public class MyDatabase extends SQLiteOpenHelper {
                 return false;
             }
         } catch (Exception ex) {
-            Log.e("NguoiDungDAO", ex.toString());
             return false;
         }
         return true;
 
     }
+
+    public int getdiem(String us) {
+        openDataBase();
+        Cursor c = mDataBase.rawQuery("SELECT diemcao FROM NguoiDung WHERE username = ? ", new String[]{us});
+            c.moveToFirst();
+
+        int diemcao = c.getInt(c.getColumnIndex("diemcao"));
+        return diemcao;
+    }
+
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
 

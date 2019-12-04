@@ -25,7 +25,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
-
+import  static com.example.duandovui.sharehelper.Share.USER;
 public class ChoiGameActivity extends AppCompatActivity implements ChoiGameInterface{
      TextView tvDiem;
     TextView tvCuuTro;
@@ -45,6 +45,7 @@ public class ChoiGameActivity extends AppCompatActivity implements ChoiGameInter
     public static  int somang;
     public static int trogiup2;
     Boolean chonnv;
+    MyDatabase myDatabase2;
     ChoiGamePrecenter pre;
     List<String> dapan;
     public  List<CauHoi> Listcauhoi = new ArrayList<>();
@@ -61,6 +62,7 @@ public class ChoiGameActivity extends AppCompatActivity implements ChoiGameInter
         chonnv = false;
         pre  = new ChoiGamePrecenter(this);
         Listcauhoi=myDatabase.laycauhoi();
+        myDatabase = new MyDatabase(this);
         tvDiem = (TextView) findViewById(R.id.tvDiem);
         tvCuuTro = (TextView) findViewById(R.id.tvCuuTro);
         tv50 = (TextView) findViewById(R.id.tv50);
@@ -321,6 +323,15 @@ public class ChoiGameActivity extends AppCompatActivity implements ChoiGameInter
         btnThoatDialogGameOver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                myDatabase2  = new MyDatabase(ChoiGameActivity.this);
+                myDatabase2.openDataBase();
+        int diemvanchoi = Integer.parseInt(tvDiem.getText().toString().trim()) ;
+        String us = USER;
+        int diemcao = myDatabase2.getdiem(us);
+        if (diemcao<diemvanchoi){
+            myDatabase2.updatenguoidung(us,diemvanchoi);
+            Toast.makeText(getApplicationContext(),"Bạn đạt kỷ lục cá nhân",Toast.LENGTH_SHORT).show();
+        }
                 dialog.dismiss();
                 finish();
             }

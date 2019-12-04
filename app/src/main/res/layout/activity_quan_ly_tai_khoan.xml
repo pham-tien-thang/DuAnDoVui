@@ -10,10 +10,11 @@
     <ListView
         android:id="@+id/lvTaiKhoan"
         android:layout_width="match_parent"
-        android:layout_height="300dp">
+        android:layout_height="350dp">
     </ListView>
     <Button
         android:id="@+id/btnThoat"
+        android:layout_marginTop="40dp"
         android:layout_marginBottom="15dp"
         android:layout_width="180dp"
         android:layout_height="wrap_content"

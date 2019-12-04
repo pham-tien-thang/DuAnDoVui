@@ -19,6 +19,7 @@
 mỗi đáp án đúng bạn được +1 điểm, nếu sai sẽ dừng cuộc chơi
 có 3 sự trợ giúp : loại bỏ 2 đáp án sai,gọi cứu trợ và chuyển câu hỏi.
 " />
+
 <ImageView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
