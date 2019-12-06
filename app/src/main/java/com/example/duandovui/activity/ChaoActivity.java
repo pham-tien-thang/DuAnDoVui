@@ -5,12 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 
 import com.example.duandovui.R;
 import com.example.duandovui.database.MyDatabase;
 import com.example.duandovui.model.NguoiDung;
+
+import java.util.Random;
 
 public class ChaoActivity extends AppCompatActivity implements Chaointerface {
 Chaoprecenter chaoprecenter;
@@ -21,6 +24,7 @@ chaoprecenter = new Chaoprecenter(this);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
 chaoprecenter.chuyenmh();
+
 
     }
 

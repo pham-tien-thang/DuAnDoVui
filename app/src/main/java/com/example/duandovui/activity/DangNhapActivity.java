@@ -16,7 +16,7 @@ import com.example.duandovui.R;
 import com.example.duandovui.database.MyDatabase;
 import com.example.duandovui.model.NguoiDung;
 import com.example.duandovui.model.NguoiDung;
-import  static com.example.duandovui.sharehelper.Share.USER;
+import  static com.example.duandovui.sharehelper.Share.*;
 public class DangNhapActivity extends AppCompatActivity implements  DangNhapInterface {
      EditText edtUser;
     EditText edtpassword;
@@ -52,6 +52,7 @@ pre = new DangNhapPrecenter(this,this);
 
                 Toast.makeText(getApplicationContext(), "Đã đăng nhập", Toast.LENGTH_SHORT).show();
                 USER = username;
+                PASSWORD = password;
                 Intent intent = new Intent(DangNhapActivity.this, ManHinhChinhActivity.class);
                 startActivity(intent);
 

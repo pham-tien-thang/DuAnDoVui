@@ -245,7 +245,20 @@ public class MyDatabase extends SQLiteOpenHelper {
         int diemcao = c.getInt(c.getColumnIndex("diemcao"));
         return diemcao;
     }
+    public boolean updatematkhau(String username, String mk) {
+        ContentValues Values = new ContentValues();
 
+        Values.put("password", mk);
+        try {
+            if (mDataBase.update("NguoiDung", Values, "username=?", new String[]{username}) == -1) {
+                return false;
+            }
+        } catch (Exception ex) {
+            return false;
+        }
+        return true;
+
+    }
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
 
