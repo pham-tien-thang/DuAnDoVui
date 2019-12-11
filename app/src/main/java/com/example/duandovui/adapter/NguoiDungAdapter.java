@@ -1,12 +1,15 @@
 package com.example.duandovui.adapter;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -44,10 +47,38 @@ public class NguoiDungAdapter extends ArrayAdapter {
             hoder.xoa.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                                myDatabase = new MyDatabase(context);
+                    final Dialog dialogxoa = new Dialog(context);
+                    dialogxoa.setContentView(R.layout.dialog_xoa);
+                     TextView tvXoa;
+                     Button btnXoa;
+                     Button btnHuyXoa;
+                    tvXoa = (TextView) dialogxoa.findViewById(R.id.tvXoa);
+                    btnXoa = (Button) dialogxoa.findViewById(R.id.btnXoa);
+                    btnHuyXoa = (Button) dialogxoa.findViewById(R.id.btnHuyXoa);
+                    tvXoa.setText("Bạn có muốn xóa "+"'"+arrnguoidung.get(position).getUsername()+"'");
+                    btnXoa.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            myDatabase = new MyDatabase(context);
             myDatabase.deleteNguoiDungByID(arrnguoidung.get(position).getUsername());
             arrnguoidung.remove(position);
             notifyDataSetChanged();
+                            Toast.makeText(getContext(),"đã xóa",Toast.LENGTH_SHORT).show();
+                            dialogxoa.dismiss();
+                        }
+
+                    });
+                    btnHuyXoa.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            dialogxoa.dismiss();
+                        }
+                    });
+                    dialogxoa.show();
+//                                myDatabase = new MyDatabase(context);
+//            myDatabase.deleteNguoiDungByID(arrnguoidung.get(position).getUsername());
+//            arrnguoidung.remove(position);
+//            notifyDataSetChanged();
                 }
             });
 

@@ -30,7 +30,6 @@ List<NguoiDung> listop = new ArrayList<>();
         btnThoat = (Button) findViewById(R.id.btnThoat);
         myDatabase = new MyDatabase(this);
         listop = myDatabase.getTopNguoiDung();
-        Log.d("ssas",listop.size()+"");
         diemCaoAdapter = new DiemCaoAdapter(this,R.layout.item_diem_cao,listop);
         lvDiemCao.setAdapter(diemCaoAdapter);
         btnThoat.setOnClickListener(new View.OnClickListener() {
