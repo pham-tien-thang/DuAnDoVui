@@ -1,6 +1,7 @@
 package com.example.duandovui.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.duandovui.R;
+import com.example.duandovui.databinding.ActivityManHinhChinhBinding;
 
 public class ManHinhChinhActivity extends AppCompatActivity implements ManHinhchinhInterface {
      Button btnTaiKhoan;
@@ -15,12 +17,13 @@ public class ManHinhChinhActivity extends AppCompatActivity implements ManHinhch
     Button btnHuongDan;
     Button btnDiemCao;
      Button btnThoat;
-
+ActivityManHinhChinhBinding manHinhChinhBinding;
 ManHinhChinhPrecenter pre;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_man_hinh_chinh);
+        manHinhChinhBinding = DataBindingUtil.setContentView(ManHinhChinhActivity.this, R.layout.activity_man_hinh_chinh);
         pre = new ManHinhChinhPrecenter(this);
         btnTaiKhoan = (Button) findViewById(R.id.btnTaiKhoan);
         btnChoiGame = (Button) findViewById(R.id.btnChoiGame);

@@ -1,6 +1,7 @@
 package com.example.duandovui.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.widget.ListView;
 import com.example.duandovui.R;
 import com.example.duandovui.adapter.DiemCaoAdapter;
 import com.example.duandovui.database.MyDatabase;
+import com.example.duandovui.databinding.ActivityDiemCaoBinding;
 import com.example.duandovui.model.NguoiDung;
 
 import java.util.ArrayList;
@@ -21,11 +23,13 @@ public class DiemCaoActivity extends AppCompatActivity {
      Button btnThoat;
 MyDatabase myDatabase;
 DiemCaoAdapter diemCaoAdapter;
+ActivityDiemCaoBinding diemCaoBinding;
 List<NguoiDung> listop = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diem_cao);
+        diemCaoBinding = DataBindingUtil.setContentView(DiemCaoActivity.this, R.layout.activity_diem_cao);
         lvDiemCao = (ListView) findViewById(R.id.lvDiemCao);
         btnThoat = (Button) findViewById(R.id.btnThoat);
         myDatabase = new MyDatabase(this);

@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="user"
+            type="com.example.duandovui.model.NguoiDung"/>
+    </data>
+<LinearLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -19,6 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Tên tài khoản"
+        android:text="@={user.username}"
         android:maxLength="10"
         android:layout_marginBottom="30dp"/>
     <EditText
@@ -26,6 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Mật khẩu"
+        android:text="@={user.password}"
         android:maxLength="10"
         android:layout_marginBottom="30dp"/>
     <Button
@@ -38,3 +46,4 @@
         android:textColor="@color/trang"
         android:background="@drawable/botron"/>
 </LinearLayout>
+</layout>

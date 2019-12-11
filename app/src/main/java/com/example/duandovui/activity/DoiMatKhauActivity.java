@@ -1,6 +1,7 @@
 package com.example.duandovui.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import android.os.Bundle;
 import android.view.View;
@@ -10,54 +11,53 @@ import android.widget.Toast;
 
 import com.example.duandovui.R;
 import com.example.duandovui.database.MyDatabase;
+import com.example.duandovui.databinding.ActivityDoiMatKhauBinding;
+
 import  static  com.example.duandovui.sharehelper.Share.*;
 public class DoiMatKhauActivity extends AppCompatActivity implements  DoimatkhauInterface{
-     EditText edtMkCu;
-     EditText edtMkMoi;
      Button btnluu;
     MyDatabase myDatabase;
     DoiMatKhauPresenter pre;
-
+    ActivityDoiMatKhauBinding doiMatKhauBinding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doi_mat_khau);
+        doiMatKhauBinding = DataBindingUtil.setContentView(DoiMatKhauActivity.this, R.layout.activity_doi_mat_khau);
         myDatabase = new MyDatabase(this);
-        edtMkCu = (EditText) findViewById(R.id.edtMkCu);
-        edtMkMoi = (EditText) findViewById(R.id.edtMkMoi);
         pre = new DoiMatKhauPresenter(this,this);
         btnluu = (Button) findViewById(R.id.btnluu);
         btnluu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-pre.dmk(edtMkCu.getText().toString(),edtMkMoi.getText().toString());
+pre.dmk(doiMatKhauBinding.edtMkCu.getText().toString(),doiMatKhauBinding.edtMkMoi.getText().toString());
             }
         });
     }
 
     @Override
     public void checkMkCuRong() {
-        edtMkCu.setError("Mật khẩu cũ rỗng");
+        doiMatKhauBinding.edtMkCu.setError("Mật khẩu cũ rỗng");
     }
 
     @Override
     public void checkMkMoiRong() {
-        edtMkMoi.setError("mật khảu mới rỗng");
+        doiMatKhauBinding.edtMkMoi.setError("mật khảu mới rỗng");
     }
 
     @Override
     public void checkSaiMkCu() {
-        edtMkCu.setError("Mật khẩu cũ không đúng");
+        doiMatKhauBinding.edtMkCu.setError("Mật khẩu cũ không đúng");
     }
 
     @Override
     public void checkTrungMatKhau() {
-        edtMkMoi.setError("Không được trùng");
+        doiMatKhauBinding.edtMkMoi.setError("Không được trùng");
     }
 
     @Override
     public void doithanhcong() {
-        Toast.makeText(getApplicationContext(),"Mật khẩu mới là: "+edtMkMoi.getText().toString(),Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(),"Mật khẩu mới là: "+doiMatKhauBinding.edtMkMoi.getText().toString(),Toast.LENGTH_SHORT).show();
         finish();
     }
 

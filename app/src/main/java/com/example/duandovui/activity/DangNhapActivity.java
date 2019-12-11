@@ -1,8 +1,11 @@
 package com.example.duandovui.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+
 
 import android.content.Intent;
+import android.database.DatabaseUtils;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -14,34 +17,31 @@ import android.widget.Toast;
 import com.example.duandovui.R;
 
 import com.example.duandovui.database.MyDatabase;
+import com.example.duandovui.databinding.ActivityDangNhapBinding;
 import com.example.duandovui.model.NguoiDung;
 import com.example.duandovui.model.NguoiDung;
 import  static com.example.duandovui.sharehelper.Share.*;
 public class DangNhapActivity extends AppCompatActivity implements  DangNhapInterface {
-     EditText edtUser;
-    EditText edtpassword;
+
     Button btnDangNhap;
 DangNhapPrecenter pre;
-String username;
-String password;
-//MyDatabase myDatabase;
+
+ActivityDangNhapBinding dangNhapBinding;
+NguoiDung nd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_dang_nhap);
-        edtUser = (EditText) findViewById(R.id.edtUser);
-        edtpassword = (EditText) findViewById(R.id.edtpassword);
+dangNhapBinding = DataBindingUtil.setContentView(DangNhapActivity.this, R.layout.activity_dang_nhap);
         btnDangNhap = (Button) findViewById(R.id.btnDangNhap);
-//        myDatabase = new MyDatabase(this);
 pre = new DangNhapPrecenter(this,this);
+        nd = new NguoiDung("","");
+        dangNhapBinding.setUser(nd);
        btnDangNhap.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
-
-               username = edtUser.getText().toString();
-               password = edtpassword.getText().toString();
-               pre.login(username,password);
+               pre.login(dangNhapBinding.getUser().getUsername(),dangNhapBinding.getUser().getPassword());
            }
        });
     }
@@ -51,8 +51,8 @@ pre = new DangNhapPrecenter(this,this);
     public void login() {
 
                 Toast.makeText(getApplicationContext(), "Đã đăng nhập", Toast.LENGTH_SHORT).show();
-                USER = username;
-                PASSWORD = password;
+                USER = dangNhapBinding.getUser().getUsername();
+                PASSWORD = dangNhapBinding.getUser().getPassword();
                 Intent intent = new Intent(DangNhapActivity.this, ManHinhChinhActivity.class);
                 startActivity(intent);
 
@@ -61,12 +61,12 @@ pre = new DangNhapPrecenter(this,this);
 
     @Override
     public void checkus() {
-        edtUser.setError("nhập tài khoản");
+        dangNhapBinding.edtUser.setError("nhập tài khoản");
     }
 
     @Override
     public void checkpass() {
-        edtpassword.setError("nhập mật khẩu");
+        dangNhapBinding.edtpassword.setError("nhập mật khẩu");
     }
 
     @Override

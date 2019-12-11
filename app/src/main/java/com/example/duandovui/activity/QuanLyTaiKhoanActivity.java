@@ -1,6 +1,7 @@
 package com.example.duandovui.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.widget.ListView;
 import com.example.duandovui.R;
 import com.example.duandovui.adapter.NguoiDungAdapter;
 import com.example.duandovui.database.MyDatabase;
+import com.example.duandovui.databinding.ActivityQuanLyTaiKhoanBinding;
 import com.example.duandovui.model.NguoiDung;
 
 import java.util.ArrayList;
@@ -25,11 +27,13 @@ public class QuanLyTaiKhoanActivity extends AppCompatActivity {
 NguoiDungAdapter nguoiDungAdapter;
 MyDatabase myDatabase;
 List<NguoiDung> listnguoidung = new ArrayList<>();
+ActivityQuanLyTaiKhoanBinding quanLyTaiKhoanBinding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle("Tài khoản");
         setContentView(R.layout.activity_quan_ly_tai_khoan);
+        quanLyTaiKhoanBinding = DataBindingUtil.setContentView(QuanLyTaiKhoanActivity.this, R.layout.activity_quan_ly_tai_khoan);
         lvTaiKhoan = (ListView) findViewById(R.id.lvTaiKhoan);
         btnThoat = (Button) findViewById(R.id.btnThoat);
         myDatabase = new MyDatabase(this);
